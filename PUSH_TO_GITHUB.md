@@ -8,7 +8,11 @@ Current local path:
 C:\Users\Tangrui\Desktop\MR_MOSFET_validity_warning_reproducibility_20260525
 ```
 
-Because GitHub CLI is not logged in on this machine, push cannot be completed automatically yet.
+The repository has been published at:
+
+```text
+https://github.com/Tang-rui-wq/MR_MOSFET_validity_warning_reproducibility
+```
 
 ## Option A: create a new public GitHub repository
 
