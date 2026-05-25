@@ -53,6 +53,8 @@ Some scripts may require updating local path variables if the repository is move
 
 GitHub repository: https://github.com/Tang-rui-wq/MR_MOSFET_validity_warning_reproducibility
 
+MR submission package release: https://github.com/Tang-rui-wq/MR_MOSFET_validity_warning_reproducibility/releases/tag/mr-submission-package-20260525
+
 Zenodo DOI: to be added after public archive deposition.
 
 ## License
