@@ -1,0 +1,11 @@
+item,scope,value,unit,manuscript_location,source_note
+HI MAE,test,0.0216,HI,Abstract; Table 6; Conclusion,Locked manuscript metric from 64-hidden/90-epoch seed-42 baseline experiment
+HI RMSE,test,0.0346,HI,Abstract; Table 6; Tables 7-8; Conclusion,Locked manuscript metric from 64-hidden/90-epoch seed-42 baseline experiment
+Warnings,test,7/7,trajectories,Abstract; Tables 6-8,Threshold rule HI <= 0.2
+EOL MAE,test,0.0563,h,Abstract; Table 6; Tables 7-8; Conclusion,Threshold-derived from predicted HI crossing for seed-42 canonical run
+RUL MAE,test,0.0491,h,Abstract; Table 6; Conclusion,Threshold-derived from predicted HI crossing for seed-42 canonical run
+Delta Rds EOL,train-calibrated,0.209199,relative resistance,Methods; Table 2; Figure 7,Lower quartile of training-test per-trajectory Rds residual p95 candidates
+Current validity boundary,hardware,0.10,A,Abstract; Section 4; Figure 7,Empirical boundary for the present low-side sampling circuit
+PG-RGRU comparison configuration,experiment,"64 hidden / 90 epochs / seed 42",model setting,Table 2; Tables 6-8,Reproduced by run_nasa_mosfet_experiments.py baseline/ablation pipeline
+MIL replay checkpoint,implementation,"same 64-hidden / 90-epoch checkpoint exported to Simulink",model setting,Table 2; Section 5,Do not mix with older 72-hidden deployment scratch results
+Random-seed repeat,robustness,"HI RMSE 0.0339 +/- 0.0015; warning coverage 7/7 for every seed",HI,Section 6.3; Supplementary Tables S2-S3,Seeds 1/7/21/42/100 with fixed split and hyperparameters

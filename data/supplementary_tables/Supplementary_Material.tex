@@ -1,0 +1,135 @@
+\documentclass[preprint,12pt]{elsarticle}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\setlength{\emergencystretch}{2em}
+\begin{document}
+
+\section*{Supplementary material}
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\caption{Supplementary Table S1. Objective pre-model exclusion statistics for tests not used in resistance-HI label training.}
+\begin{tabularx}{\textwidth}{@{}lrrrX@{}}
+\toprule
+Test & $R_{\mathrm{ds,ref}}$ & $\Delta R_{\mathrm{ds},95}$ & Trend & Reason \\
+\midrule
+1 & 1.3373 & 0.00354 & -0.098 & insufficient observable Rds degradation \\
+2 & 116.5270 & 0.15992 & -0.037 & invalid on-state Rds reference \\
+16 & 1.4890 & 0.00414 & -0.333 & insufficient observable Rds degradation \\
+17 & 1.5108 & 0.00004 & -0.703 & insufficient observable Rds degradation \\
+22 & 1.3983 & 0.00957 & 0.605 & insufficient observable Rds degradation \\
+27 & 1.8409 & -0.00008 & -0.324 & insufficient observable Rds degradation \\
+31 & 1.6078 & -0.00002 & -0.185 & insufficient observable Rds degradation \\
+41 & 1.8197 & -0.00007 & -0.200 & insufficient observable Rds degradation \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\caption{Supplementary Table S2. PG-RGRU random-seed repeat using the fixed 64-hidden/90-epoch setting.}
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+Seed & HI MAE & HI RMSE & Warnings & EOL MAE (h) & RUL MAE (h) \\
+\midrule
+1 & 0.0206 & 0.0362 & 7/7 & 0.1713 & 0.1190 \\
+7 & 0.0211 & 0.0328 & 7/7 & 0.2276 & 0.1407 \\
+21 & 0.0160 & 0.0333 & 7/7 & 0.1668 & 0.1154 \\
+42 & 0.0216 & 0.0346 & 7/7 & 0.0563 & 0.0491 \\
+100 & 0.0210 & 0.0325 & 7/7 & 0.2280 & 0.1399 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\caption{Supplementary Table S3. Summary statistics of the five-seed PG-RGRU repeat.}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Metric & Mean & SD & Min & Max \\
+\midrule
+HI MAE & 0.0201 & 0.0023 & 0.0160 & 0.0216 \\
+HI RMSE & 0.0339 & 0.0015 & 0.0325 & 0.0362 \\
+Warning rate & 1.0000 & 0.0000 & 1.0000 & 1.0000 \\
+EOL MAE (h) & 0.1700 & 0.0700 & 0.0563 & 0.2280 \\
+RUL MAE (h) & 0.1128 & 0.0374 & 0.0491 & 0.1407 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\caption{Supplementary Table S4. Simulink--Python consistency for the exported 64-hidden PG-RGRU checkpoint.}
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+Test & HI MAE & HI RMSE & Max diff. & EOL diff. (h) & Hit \\
+\midrule
+6 & 0.0226 & 0.0304 & 0.0440 & 0.0000 & Yes \\
+13 & 0.0036 & 0.0101 & 0.0682 & 0.0000 & Yes \\
+14 & 0.0033 & 0.0101 & 0.0768 & 0.0000 & Yes \\
+20 & 0.0010 & 0.0054 & 0.0621 & 0.0000 & Yes \\
+25 & $<0.0001$ & 0.0005 & 0.0132 & 0.0000 & Yes \\
+34 & $<0.0001$ & $<0.0001$ & $<0.0001$ & 0.0000 & Yes \\
+42 & $<0.0001$ & $<0.0001$ & $<0.0001$ & 0.0000 & Yes \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\caption{Supplementary Table S5. Three-seed 64-hidden warning-probability decision summary.}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Metric & Raw mean & Raw SD & Calibrated mean & Calibrated SD \\
+\midrule
+Warning coverage & 7.000 & 0.000 & 7.000 & 0.000 \\
+Missed warning tests & 0.000 & 0.000 & 0.000 & 0.000 \\
+False-before-target tests & 5.667 & 0.577 & 2.000 & 0.000 \\
+False-warning windows & 0.1103 & 0.0019 & 0.0629 & 0.0209 \\
+Lead-time error MAE (h) & 1.2875 & 0.0222 & 1.2263 & 0.0012 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\caption{Supplementary Table S6. Threshold-derived EOL relative-error intervals on the seven test trajectories.}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+EOL relative error interval & Tests & Proportion \\
+\midrule
+0--10\% & 7 & 100.0\% \\
+10--20\% & 0 & 0.0\% \\
+20--30\% & 0 & 0.0\% \\
+$>$30\% & 0 & 0.0\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\caption{Supplementary Table S7. Test-level threshold-derived EOL relative error.}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+Test & True EOL (h) & Absolute error (h) & Relative error (\%) \\
+\midrule
+6 & 0.7210 & 0.0575 & 7.98 \\
+13 & 1.7439 & 0.0341 & 1.95 \\
+14 & 20.1151 & 0.1068 & 0.53 \\
+20 & 8.0377 & 0.1046 & 1.30 \\
+25 & 11.1711 & 0.0420 & 0.38 \\
+34 & 41.8143 & 0.0348 & 0.08 \\
+42 & 0.5485 & 0.0144 & 2.62 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\end{document}

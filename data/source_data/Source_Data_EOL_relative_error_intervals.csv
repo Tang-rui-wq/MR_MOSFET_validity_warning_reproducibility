@@ -1,0 +1,5 @@
+relative_error_interval,n_tests,proportion
+0-10%,7,100.0%
+10-20%,0,0.0%
+20-30%,0,0.0%
+>30%,0,0.0%

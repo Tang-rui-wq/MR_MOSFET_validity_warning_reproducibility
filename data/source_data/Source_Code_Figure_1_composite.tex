@@ -1,0 +1,16 @@
+\documentclass{article}
+\usepackage[active,tightpage]{preview}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\PreviewEnvironment{tikzpicture}
+\setlength\PreviewBorder{2mm}
+\pagestyle{empty}
+
+\begin{document}
+\begin{tikzpicture}
+\node[inner sep=0pt] (photo) {\includegraphics[width=0.98\linewidth]{Figure_1a_hardware_setup_annotated.png}};
+\node[inner sep=0pt, below=4.5mm of photo] (circuit) {\includegraphics[width=0.98\linewidth]{Figure_1b_low_side_circuit.pdf}};
+\node[anchor=north west, font=\bfseries\large, fill=white, inner sep=1.5pt] at (circuit.north west) {b};
+\end{tikzpicture}
+\end{document}

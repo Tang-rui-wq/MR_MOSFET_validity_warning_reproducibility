@@ -1,0 +1,112 @@
+\documentclass{article}
+\usepackage[active,tightpage]{preview}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc,positioning}
+\PreviewEnvironment{tikzpicture}
+\setlength\PreviewBorder{4mm}
+\pagestyle{empty}
+
+\tikzset{
+    wire/.style={line width=0.75pt, draw=black, line cap=round, line join=round},
+    sense/.style={line width=0.65pt, draw=black, dashed, line cap=round},
+    arrow/.style={-Latex, line width=0.9pt, draw=black},
+    block/.style={draw=black, rounded corners=1.5pt, line width=0.75pt,
+                  minimum width=2.10cm, minimum height=1.05cm, align=center},
+    label/.style={font=\footnotesize, align=center, fill=white, inner sep=1.2pt},
+    tinylabel/.style={font=\scriptsize, align=center, fill=white, inner sep=1pt}
+}
+
+\newcommand{\ground}[1]{%
+    \draw[wire] (#1) -- ++(0,-0.08);
+    \draw[wire] ($(#1)+(-0.22,-0.08)$) -- ++(0.44,0);
+    \draw[wire] ($(#1)+(-0.15,-0.16)$) -- ++(0.30,0);
+    \draw[wire] ($(#1)+(-0.08,-0.24)$) -- ++(0.16,0);
+}
+
+\newcommand{\vres}[4]{%
+    \draw[wire] (#1,#2) -- (#1,{#2-0.22});
+    \draw[wire] ($(#1,#2-0.22)+(-0.27,0)$) rectangle ($(#1,#3+0.22)+(0.27,0)$);
+    \draw[wire] (#1,{#3+0.22}) -- (#1,#3);
+    \node[label, right=0.30cm] at (#1,{(#2+#3)/2}) {#4};
+}
+
+\newcommand{\vind}[4]{%
+    \draw[wire] (#1,#2) -- (#1,{#2-0.12});
+    \draw[wire] (#1,{#2-0.12})
+        .. controls ++(-0.28,-0.08) and ++(-0.28,0.08) .. (#1,{#2-0.35})
+        .. controls ++(0.28,-0.08) and ++(0.28,0.08) .. (#1,{#2-0.58})
+        .. controls ++(-0.28,-0.08) and ++(-0.28,0.08) .. (#1,{#2-0.81})
+        .. controls ++(0.28,-0.08) and ++(0.28,0.08) .. (#1,{#3+0.12});
+    \draw[wire] (#1,{#3+0.12}) -- (#1,#3);
+    \node[label, right=0.30cm] at (#1,{(#2+#3)/2}) {#4};
+}
+
+\begin{document}
+
+\begin{tikzpicture}[font=\footnotesize, >=Latex]
+% Coordinates
+\coordinate (busp) at (0.95,4.80);
+\coordinate (busn) at (0.95,0.45);
+\coordinate (topend) at (10.70,4.80);
+\coordinate (drain) at (6.25,2.42);
+\coordinate (source) at (6.25,1.17);
+\coordinate (rsbot) at (6.25,0.42);
+
+% DC link
+\draw[wire] (busp) -- (topend);
+\draw[wire] (busp) -- (0.95,3.18);
+\draw[wire] (0.62,2.95) -- (1.28,2.95);
+\draw[wire] (0.62,2.68) -- (1.28,2.68);
+\draw[wire] (0.95,2.42) -- (busn);
+\ground{busn}
+\node[label, above=0.03cm] at (busp) {$V_{\mathrm{bus}}$};
+\node[label, left=0.20cm] at (0.95,2.82) {$C_{\mathrm{in}}$};
+
+% R-L load and DUT path
+\vres{6.25}{4.80}{3.87}{$R_1=5\,\Omega$}
+\vind{6.25}{3.87}{2.42}{$L=4\,\mathrm{mH}$}
+\fill (drain) circle (1.15pt);
+\node[tinylabel, left=0.30cm] at (drain) {drain};
+
+% Low-side MOSFET symbol
+\draw[wire] (drain) -- (6.25,2.08);
+\draw[wire] (6.25,1.58) -- (source);
+\draw[wire] (5.96,1.55) -- (5.96,2.11);
+\draw[wire] (5.60,1.42) -- (5.60,2.24);
+\draw[wire] (4.86,1.83) -- (5.60,1.83);
+\draw[wire] (6.10,1.95) -- (6.40,1.72);
+\draw[wire] (6.10,1.72) -- (6.40,1.95);
+\coordinate (gate) at (4.86,1.83);
+\node[label, right=0.35cm] at (6.45,1.84) {$Q_1$\\DUT};
+
+% Shunt and current direction
+\draw[wire] (source) -- (6.25,1.00);
+\vres{6.25}{1.00}{0.42}{$R_s$}
+\ground{rsbot}
+\node[tinylabel, below=0.34cm] at (rsbot) {source / current sense};
+\draw[arrow] (7.45,2.25) -- (7.45,0.72)
+      node[midway,right=0.10cm,label] {$I_{\mathrm{d,corr}}$};
+
+% Differential Vds sensing block
+\node[block, minimum width=1.45cm, minimum height=1.28cm] (vds) at (10.10,1.82)
+      {$V_{\mathrm{ds}}$\\sensing};
+\draw[sense] (drain) -- (8.80,2.42) |- ($(vds.west)+(0,0.28)$);
+\draw[sense] (source) -- (8.80,1.17) |- ($(vds.west)+(0,-0.28)$);
+\node[tinylabel, left=0.04cm] at ($(vds.west)+(0,0.28)$) {$+$};
+\node[tinylabel, left=0.04cm] at ($(vds.west)+(0,-0.28)$) {$-$};
+
+% Gate driver
+\node[block] (drv) at (2.45,1.83) {Isolated\\gate driver};
+\draw[wire] (drv.east) -- (gate)
+      node[midway,above,label] {$V_{\mathrm{gs}}$};
+\draw[arrow] ($(drv.west)+(-0.82,0.30)$) -- ($(drv.west)+(0,0.30)$)
+      node[midway,above,label] {IN};
+\node[label, anchor=east] (vp) at ($(drv.west)+(-0.82,0.60)$) {$V_{\mathrm{POS}}$};
+\node[label, anchor=east] (vn) at ($(drv.west)+(-0.82,-0.60)$) {$V_{\mathrm{NEG}}$};
+\draw[wire] (vp.east) -- ($(drv.west)+(0,0.60)$);
+\draw[wire] (vn.east) -- ($(drv.west)+(0,-0.60)$);
+
+\end{tikzpicture}
+
+\end{document}
